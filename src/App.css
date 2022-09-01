@@ -43,3 +43,7 @@ justify-content: center;
   max-height: 700px;
   object-fit: contain;
 }
+
+.movie-detail-container{
+  max-width: 900px;
+}

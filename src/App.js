@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Route, Routes, Navigate } from "react-router-dom";
+import { Link, Route, Routes, Navigate, useParams, useNavigate } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
 import { Movie } from "./Movie";
@@ -15,6 +15,7 @@ function App() {
       year: 1994,
       summary:
         "Forrest Gump is a simple man with a low I.Q. but good intentions. He is running through childhood with his best and only friend Jenny. His 'mama' teaches him the ways of life and leaves him to choose his destiny.",
+      trailer: "https://youtu.be/bLvqoHBptjg",
     },
     {
       name: "Interstellar",
@@ -24,6 +25,7 @@ function App() {
       year: 2014,
       summary:
         "Earth's future has been riddled by disasters, famines, and droughts. There is only one way to ensure mankind's survival: Interstellar travel. How far love can get you!",
+      trailer: "https://www.youtube.com/embed/ePbKGoIGAXY",
     },
     {
       name: "Saving Private Ryan",
@@ -33,6 +35,7 @@ function App() {
       year: 1998,
       summary:
         "Opening with the Allied invasion of Normandy on 6 June 1944, members of the 2nd Ranger Battalion under Cpt. Miller fight ashore to secure a beachhead. Amidst the fighting, two brothers are killed in action.",
+      trailer: "https://youtu.be/9CiW_DgxCnQ",
     },
     {
       name: "The Dark Knight Rises",
@@ -42,6 +45,7 @@ function App() {
       year: 2012,
       summary:
         "Despite his tarnished reputation after the events of The Dark Knight (2008), in which he took the rap for Dent's crimes, Batman feels compelled to intervene to assist the city and its Police force, which is struggling to cope with Bane's plans to destroy the city. ",
+      trailer: "https://www.youtube.com/embed/g8evyE9TuYk",
     },
     {
       name: "Coco",
@@ -51,6 +55,7 @@ function App() {
       year: 2017,
       summary:
         "Despite his family's baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events",
+      trailer: "https://www.youtube.com/embed/Rvr68u6k5sI",
     },
     {
       name: "Your Name",
@@ -59,6 +64,7 @@ function App() {
       year: 2016,
       summary:
         "Two teenagers share a profound, magical connection upon discovering they are swapping bodies. Things manage to become even more complicated when the boy and girl decide to meet in person.",
+      trailer: "https://www.youtube.com/embed/s0wTdCQoc2k",
     },
     {
       name: "The Pursuit of Happyness",
@@ -67,6 +73,7 @@ function App() {
       year: 2006,
       summary:
         "Life is a struggle for single father Chris Gardner (Will Smith). Evicted from their apartment, he and his young son (Jaden Christopher Syre Smith) find themselves alone with no place to go.",
+      trailer: "https://www.youtube.com/embed/7guyl6_7sBo",
     },
   ];
 
@@ -77,19 +84,38 @@ function App() {
     <div className="App">
       <nav>
         <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/welcome'>Welcome</Link></li>
-          <li><Link to='/color-game'>Color Game</Link></li>
-          <li><Link to='/movies'>Movies</Link></li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/welcome">Welcome</Link>
+          </li>
+          <li>
+            <Link to="/color-game">Color Game</Link>
+          </li>
+          <li>
+            <Link to="/movies">Movies</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/color-game" element={<AddColor />} />
         <Route path="/welcome" element={<Welcome name={"World"} />} />
-        <Route path="/movies" element={<MovieList moviesList={movieList} setMovieList={setMovieList} />} />
-        <Route path="/films" element={<Navigate replace to ="/movies" />} />
+        <Route
+          path="/movies"
+          element={
+            <MovieList moviesList={movieList} setMovieList={setMovieList} />
+          }
+        />
+        <Route
+          path="/movies/:id"
+          element={<MovieDetails movieList={movieList} />}
+        />
+
+        <Route path="/films" element={<Navigate replace to="/movies" />} />
         <Route path="/404" element={<NotFound />} />
+        {/* * -> 404 */}
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
       {/* <Welcome name={"World"} /> */}
@@ -109,30 +135,73 @@ function App() {
   // JSX ends
 }
 
-function NotFound(){
+function MovieDetails({movieList}) {
+  const { id } = useParams();
+
+  const movie = movieList[id];
+
+  const styles = {
+    color: movie.rating > 7.9 ? "green" : "red",
+  };
+
+ const navigate = useNavigate();
+
   return (
     <div>
-      <img src="https://miro.medium.com/max/1400/1*qdFdhbR00beEaIKDI_WDCw.gif" 
-      alt="404 Not Found"
-      className="not-found" />
+      <iframe
+        width="100%"
+        height="656"
+        src={movie.trailer}
+        title="Youtube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+      <div className="movie-detail-container">
+        <div className="movie-specs">
+          <h3 className="movie-name">{movie.name}</h3>
+          <p style={styles} className="movie-rating">
+            ⭐{movie.rating}
+          </p>
+          {/* <p className="movie-year">{movie.year}</p> */}
+        </div>
+        <p className="movie-summary">{movie.summary}</p>
+      </div>
+      <div>
+        <button onClick={()=>navigate(-1)}>Back</button>
+      </div>
     </div>
-  )
+  );
 }
 
-function Home(){
-  return <h1>Welcome to the Movie app 😊🎉😁👍</h1>
+function NotFound() {
+  return (
+    <div>
+      <img
+        src="https://miro.medium.com/max/1400/1*qdFdhbR00beEaIKDI_WDCw.gif"
+        alt="404 Not Found"
+        className="not-found"
+      />
+    </div>
+  );
+}
+
+function Home() {
+  return <h1>Welcome to the Movie app 😊🎉😁👍</h1>;
 }
 
 function MovieList({ moviesList, setMovieList }) {
   const [name, setName] = useState("");
   const [poster, setPoster] = useState("");
   const [rating, setRating] = useState("");
+  const [year, setYear] = useState("");
   const [summary, setSummary] = useState("");
   const addMovie = () => {
     const newMovie = {
       name: name,
       poster: poster,
       rating: rating,
+      year: year,
       summary: summary,
     };
     // Copy the MoviesList & add the newMovie to it
@@ -156,6 +225,10 @@ function MovieList({ moviesList, setMovieList }) {
           onChange={(event) => setRating(event.target.value)}
         />
         <input
+          placeholder="Year"
+          onChange={(event) => setYear(event.target.value)}
+        />
+        <input
           placeholder="Summary"
           onChange={(event) => setSummary(event.target.value)}
         />
@@ -163,7 +236,7 @@ function MovieList({ moviesList, setMovieList }) {
       </div>
       <div className="movie-list">
         {moviesList.map((mv, index) => (
-          <Movie key={index} movie={mv} />
+          <Movie key={index} movie={mv} id={index} />
         ))}
       </div>
     </div>

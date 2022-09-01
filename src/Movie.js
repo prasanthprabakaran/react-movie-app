@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Counter } from "./Counter";
 
-export function Movie({ movie }) {
+export function Movie({ movie, id }) {
   // rating > 8 -> green
   const [show, setShow] = useState(true);
 
@@ -15,6 +16,8 @@ export function Movie({ movie }) {
     // fontSize: "30px",
     // backgroundColor: "orange",
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="movie-container">
@@ -30,6 +33,7 @@ export function Movie({ movie }) {
       </div>
       {/* update the show value to be opposite current value */}
       <button onClick={() => setShow(!show)}>Toggle summary</button>
+      <button onClick={()=> navigate(`/movies/${id}`)}>Info</button>
       {/* Conditional styling
             <p style={paraStyles} className="movie-summary">
               {movie.summary}
