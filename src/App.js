@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
 import { Movie } from "./Movie";
@@ -74,21 +75,39 @@ function App() {
   // ctrl + /
   return (
     <div className="App">
-      <Welcome name={"World"} />
+      <nav>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/welcome'>Welcome</Link></li>
+          <li><Link to='/color-game'>Color Game</Link></li>
+          <li><Link to='/movies'>Movies</Link></li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/color-game" element={<AddColor />} />
+        <Route path="/welcome" element={<Welcome name={"World"} />} />
+        <Route path="/movies" element={<MovieList moviesList={movieList} setMovieList={setMovieList} />} />
+      </Routes>
+      {/* <Welcome name={"World"} /> */}
       {/* AddColor Component */}
-      <AddColor />
+      {/* <AddColor /> */}
 
       {/* Components + Loop */}
       {/* {students.map((student) => (
         <Message name={student.name} pic={student.pic} />
       ))} */}
-      <MovieList moviesList={movieList} setMovieList={setMovieList} />
+      {/* <MovieList moviesList={movieList} setMovieList={setMovieList} /> */}
       {/* {names.map((nm)=> (
         <Welcome name={nm} />
       ) )} */}
     </div>
   );
   // JSX ends
+}
+
+function Home(){
+  return <h1>Welcome to the Movie app 😊🎉😁👍</h1>
 }
 
 function MovieList({ moviesList, setMovieList }) {
