@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, Navigate } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
 import { Movie } from "./Movie";
@@ -88,7 +88,9 @@ function App() {
         <Route path="/color-game" element={<AddColor />} />
         <Route path="/welcome" element={<Welcome name={"World"} />} />
         <Route path="/movies" element={<MovieList moviesList={movieList} setMovieList={setMovieList} />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/films" element={<Navigate replace to ="/movies" />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
       {/* <Welcome name={"World"} /> */}
       {/* AddColor Component */}
