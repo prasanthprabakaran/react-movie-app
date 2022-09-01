@@ -74,7 +74,7 @@ function App() {
   // ctrl + /
   return (
     <div className="App">
-      <Welcome name={"Prasnth"} />
+      <Welcome name={"World"} />
       {/* AddColor Component */}
       <AddColor />
 
@@ -82,7 +82,7 @@ function App() {
       {/* {students.map((student) => (
         <Message name={student.name} pic={student.pic} />
       ))} */}
-      <MovieList moviesList={movieList} setMovieList={setMovieList}/>
+      <MovieList moviesList={movieList} setMovieList={setMovieList} />
       {/* {names.map((nm)=> (
         <Welcome name={nm} />
       ) )} */}
@@ -96,6 +96,18 @@ function MovieList({ moviesList, setMovieList }) {
   const [poster, setPoster] = useState("");
   const [rating, setRating] = useState("");
   const [summary, setSummary] = useState("");
+  const addMovie = () => {
+    const newMovie = {
+      name: name,
+      poster: poster,
+      rating: rating,
+      summary: summary,
+    };
+    // Copy thr MoviesList & add the newMovie to it
+    setMovieList([...moviesList, newMovie]);
+
+    console.log(newMovie);
+  };
   return (
     <div>
       <div className="add-movie-form">
@@ -115,22 +127,7 @@ function MovieList({ moviesList, setMovieList }) {
           placeholder="Summary"
           onChange={(event) => setSummary(event.target.value)}
         />
-        <button
-          onClick={() => {
-            const newMovie = {
-              name: name,
-              poster: poster,
-              rating: rating,
-              summary: summary
-            };
-            // Copy thr MoviesList & add the newMovie to it
-            setMovieList([...moviesList, newMovie])
-
-            console.log(newMovie);
-          }}
-        >
-          Add Movie
-        </button>
+        <button onClick={addMovie}>Add Movie</button>
       </div>
       <div className="movie-list">
         {moviesList.map((mv, index) => (

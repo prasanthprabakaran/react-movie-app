@@ -13,14 +13,17 @@ export function Counter() {
 
   // onClick & all event listeners - camelCase
   // Task - build dislike button - dislike should increase
+
+  const incrementLike = () => setLike(like + 1);
+  const incrementDisLike = () => setDisLike(dislike + 1);
   return (
     <div className="counter-container">
-      <button className="like-button" onClick={() => setLike(like + 1)}>
+      <button className="like-button" onClick={incrementLike}>
         👍 {like}
       </button>
       <button
         className="dislike-button"
-        onClick={() => setDisLike(dislike + 1)}
+        onClick={incrementDisLike}
       >
         👎 {dislike}
       </button>
