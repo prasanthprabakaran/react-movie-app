@@ -88,6 +88,7 @@ function App() {
         <Route path="/color-game" element={<AddColor />} />
         <Route path="/welcome" element={<Welcome name={"World"} />} />
         <Route path="/movies" element={<MovieList moviesList={movieList} setMovieList={setMovieList} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {/* <Welcome name={"World"} /> */}
       {/* AddColor Component */}
@@ -106,6 +107,16 @@ function App() {
   // JSX ends
 }
 
+function NotFound(){
+  return (
+    <div>
+      <img src="https://miro.medium.com/max/1400/1*qdFdhbR00beEaIKDI_WDCw.gif" 
+      alt="404 Not Found"
+      className="not-found" />
+    </div>
+  )
+}
+
 function Home(){
   return <h1>Welcome to the Movie app 😊🎉😁👍</h1>
 }
@@ -122,7 +133,7 @@ function MovieList({ moviesList, setMovieList }) {
       rating: rating,
       summary: summary,
     };
-    // Copy thr MoviesList & add the newMovie to it
+    // Copy the MoviesList & add the newMovie to it
     setMovieList([...moviesList, newMovie]);
 
     console.log(newMovie);
