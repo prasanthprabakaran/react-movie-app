@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { AddColor } from "./AddColor";
 import "./App.css";
 import { Movie } from "./Movie";
 import Welcome from "./Welcome.js";
 
 function App() {
-  const moviesList = [
+  const INITIAL_MOVIE_LIST = [
     {
       name: "Forrest Gump",
       poster:
@@ -68,10 +69,11 @@ function App() {
     },
   ];
 
+  const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
+
   // ctrl + /
   return (
     <div className="App">
-
       <Welcome name={"Prasnth"} />
       {/* AddColor Component */}
       <AddColor />
@@ -80,10 +82,56 @@ function App() {
       {/* {students.map((student) => (
         <Message name={student.name} pic={student.pic} />
       ))} */}
-
+      <MovieList moviesList={movieList} setMovieList={setMovieList}/>
       {/* {names.map((nm)=> (
         <Welcome name={nm} />
       ) )} */}
+    </div>
+  );
+  // JSX ends
+}
+
+function MovieList({ moviesList, setMovieList }) {
+  const [name, setName] = useState("");
+  const [poster, setPoster] = useState("");
+  const [rating, setRating] = useState("");
+  const [summary, setSummary] = useState("");
+  return (
+    <div>
+      <div className="add-movie-form">
+        <input
+          placeholder="Name"
+          onChange={(event) => setName(event.target.value)}
+        />
+        <input
+          placeholder="Poster"
+          onChange={(event) => setPoster(event.target.value)}
+        />
+        <input
+          placeholder="Rating"
+          onChange={(event) => setRating(event.target.value)}
+        />
+        <input
+          placeholder="Summary"
+          onChange={(event) => setSummary(event.target.value)}
+        />
+        <button
+          onClick={() => {
+            const newMovie = {
+              name: name,
+              poster: poster,
+              rating: rating,
+              summary: summary
+            };
+            // Copy thr MoviesList & add the newMovie to it
+            setMovieList([...moviesList, newMovie])
+
+            console.log(newMovie);
+          }}
+        >
+          Add Movie
+        </button>
+      </div>
       <div className="movie-list">
         {moviesList.map((mv, index) => (
           <Movie key={index} movie={mv} />
@@ -91,7 +139,6 @@ function App() {
       </div>
     </div>
   );
-  // JSX ends
 }
 
 // win + . -> emoji
