@@ -30,3 +30,10 @@ justify-content: center;
   width: 208px;
   object-fit: cover;
 }
+
+.add-movie-form {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 24px;
+}
