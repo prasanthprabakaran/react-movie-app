@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
 import Welcome from "./Welcome.js";
@@ -15,12 +9,12 @@ import { Home } from "./Home";
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { AddMovie } from "./AddMovie";
 import { MovieList } from "./MovieList";
 import { MovieDetails } from "./MovieDetails";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
 function App() {
   const INITIAL_MOVIE_LIST = [
@@ -98,67 +92,95 @@ function App() {
 
   const navigate = useNavigate();
   // ctrl + /
+  const [mode, setMode] = useState("dark");
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+
   return (
-    <div className="App">
-      <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit" onClick={() => navigate("/")}>
-            Home
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/welcome")}>
-            Welcome
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/color-game")}>
-            Color Game
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/movies")}>
-            Movies
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/movies/add")}>
-           Add Movies
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <ThemeProvider theme={theme}>
+      <Paper elevation={4} style={{ minHeight: "100vh", borderRadius: "0px" }}>
+        <div className="App">
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit" onClick={() => navigate("/")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/welcome")}>
+                Welcome
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/color-game")}>
+                Color Game
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/movies")}>
+                Movies
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/movies/add")}>
+                Add Movies
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => setMode(mode === "light" ? "dark" : "light")}
+              >
+                {mode === "Light" ? "dark" : "Light"} mode
+              </Button>
+            </Toolbar>
+          </AppBar>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/color-game" element={<AddColor />} />
-        <Route path="/welcome" element={<Welcome name={"World"} />} />
-        <Route
-          path="/movies"
-          element={
-            <MovieList moviesList={movieList} setMovieList={setMovieList} />
-          }
-        />
-        <Route
-          path="/movies/:id"
-          element={<MovieDetails movieList={movieList} />}
-        />
-        <Route
-          path="/movies/add"
-          element={
-            <AddMovie moviesList={movieList} setMovieList={setMovieList} />
-          }
-        />
+          <section className="route-container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/color-game" element={<AddColor />} />
+              <Route path="/welcome" element={<Welcome name={"World"} />} />
+              <Route
+                path="/movies"
+                element={
+                  <MovieList
+                    moviesList={movieList}
+                    setMovieList={setMovieList}
+                  />
+                }
+              />
+              <Route
+                path="/movies/:id"
+                element={<MovieDetails movieList={movieList} />}
+              />
+              <Route
+                path="/movies/add"
+                element={
+                  <AddMovie
+                    moviesList={movieList}
+                    setMovieList={setMovieList}
+                  />
+                }
+              />
 
-        <Route path="/films" element={<Navigate replace to="/movies" />} />
-        <Route path="/404" element={<NotFound />} />
-        {/* * -> 404 */}
-        <Route path="*" element={<Navigate replace to="/404" />} />
-      </Routes>
-      {/* <Welcome name={"World"} /> */}
-      {/* AddColor Component */}
-      {/* <AddColor /> */}
+              <Route
+                path="/films"
+                element={<Navigate replace to="/movies" />}
+              />
+              <Route path="/404" element={<NotFound />} />
+              {/* * -> 404 */}
+              <Route path="*" element={<Navigate replace to="/404" />} />
+            </Routes>
+          </section>
+          {/* <Welcome name={"World"} /> */}
+          {/* AddColor Component */}
+          {/* <AddColor /> */}
 
-      {/* Components + Loop */}
-      {/* {students.map((student) => (
+          {/* Components + Loop */}
+          {/* {students.map((student) => (
         <Message name={student.name} pic={student.pic} />
       ))} */}
-      {/* <MovieList moviesList={movieList} setMovieList={setMovieList} /> */}
-      {/* {names.map((nm)=> (
+          {/* <MovieList moviesList={movieList} setMovieList={setMovieList} /> */}
+          {/* {names.map((nm)=> (
         <Welcome name={nm} />
       ) )} */}
-    </div>
+        </div>
+      </Paper>
+    </ThemeProvider>
   );
   // JSX ends
 }
