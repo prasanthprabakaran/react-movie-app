@@ -1,9 +1,26 @@
 import { useState } from "react";
-import { Link, Route, Routes, Navigate, useParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
-import { Movie } from "./Movie";
 import Welcome from "./Welcome.js";
+import Button from "@mui/material/Button";
+import { NotFound } from "./NotFound";
+import { Home } from "./Home";
+
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import { AddMovie } from "./AddMovie";
+import { MovieList } from "./MovieList";
+import { MovieDetails } from "./MovieDetails";
 
 function App() {
   const INITIAL_MOVIE_LIST = [
@@ -79,25 +96,30 @@ function App() {
 
   const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
 
+  const navigate = useNavigate();
   // ctrl + /
   return (
     <div className="App">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/welcome">Welcome</Link>
-          </li>
-          <li>
-            <Link to="/color-game">Color Game</Link>
-          </li>
-          <li>
-            <Link to="/movies">Movies</Link>
-          </li>
-        </ul>
-      </nav>
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick={() => navigate("/")}>
+            Home
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/welcome")}>
+            Welcome
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/color-game")}>
+            Color Game
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/movies")}>
+            Movies
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/movies/add")}>
+           Add Movies
+          </Button>
+        </Toolbar>
+      </AppBar>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/color-game" element={<AddColor />} />
@@ -111,6 +133,12 @@ function App() {
         <Route
           path="/movies/:id"
           element={<MovieDetails movieList={movieList} />}
+        />
+        <Route
+          path="/movies/add"
+          element={
+            <AddMovie moviesList={movieList} setMovieList={setMovieList} />
+          }
         />
 
         <Route path="/films" element={<Navigate replace to="/movies" />} />
@@ -133,114 +161,6 @@ function App() {
     </div>
   );
   // JSX ends
-}
-
-function MovieDetails({movieList}) {
-  const { id } = useParams();
-
-  const movie = movieList[id];
-
-  const styles = {
-    color: movie.rating > 7.9 ? "green" : "red",
-  };
-
- const navigate = useNavigate();
-
-  return (
-    <div>
-      <iframe
-        width="100%"
-        height="656"
-        src={movie.trailer}
-        title="Youtube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-      <div className="movie-detail-container">
-        <div className="movie-specs">
-          <h3 className="movie-name">{movie.name}</h3>
-          <p style={styles} className="movie-rating">
-            ⭐{movie.rating}
-          </p>
-          {/* <p className="movie-year">{movie.year}</p> */}
-        </div>
-        <p className="movie-summary">{movie.summary}</p>
-      </div>
-      <div>
-        <button onClick={()=>navigate(-1)}>Back</button>
-      </div>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div>
-      <img
-        src="https://miro.medium.com/max/1400/1*qdFdhbR00beEaIKDI_WDCw.gif"
-        alt="404 Not Found"
-        className="not-found"
-      />
-    </div>
-  );
-}
-
-function Home() {
-  return <h1>Welcome to the Movie app 😊🎉😁👍</h1>;
-}
-
-function MovieList({ moviesList, setMovieList }) {
-  const [name, setName] = useState("");
-  const [poster, setPoster] = useState("");
-  const [rating, setRating] = useState("");
-  const [year, setYear] = useState("");
-  const [summary, setSummary] = useState("");
-  const addMovie = () => {
-    const newMovie = {
-      name: name,
-      poster: poster,
-      rating: rating,
-      year: year,
-      summary: summary,
-    };
-    // Copy the MoviesList & add the newMovie to it
-    setMovieList([...moviesList, newMovie]);
-
-    console.log(newMovie);
-  };
-  return (
-    <div>
-      <div className="add-movie-form">
-        <input
-          placeholder="Name"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <input
-          placeholder="Poster"
-          onChange={(event) => setPoster(event.target.value)}
-        />
-        <input
-          placeholder="Rating"
-          onChange={(event) => setRating(event.target.value)}
-        />
-        <input
-          placeholder="Year"
-          onChange={(event) => setYear(event.target.value)}
-        />
-        <input
-          placeholder="Summary"
-          onChange={(event) => setSummary(event.target.value)}
-        />
-        <button onClick={addMovie}>Add Movie</button>
-      </div>
-      <div className="movie-list">
-        {moviesList.map((mv, index) => (
-          <Movie key={index} movie={mv} id={index} />
-        ))}
-      </div>
-    </div>
-  );
 }
 
 // win + . -> emoji

@@ -1,12 +1,13 @@
 .App {
   font-family: sans-serif;
 }
-body {
+/* body {
   margin: 5%;
-}
+} */
 
-.movie-container{
-width: 208px;
+.movie-container {
+  height: min-content;
+  width: 340px;
 }
 
 .image-container {
@@ -14,22 +15,32 @@ width: 208px;
   border-radius: 0.3rem;
   overflow: hidden;
   position: relative; */
-}
-
-.movie-list{
-display: grid;
-grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-grid-gap:1rem;
-gap: 1rem;
-justify-content: center;
-
+  /* display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center; */
 }
 
 .movie-poster {
+  height: 500px;
+  object-fit: cover;
+  width: 340px;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+}
+
+/* .movie-poster {
   height: 312px;
   width: 208px;
   object-fit: cover;
-}
+} */
 
 .add-movie-form {
   display: flex;
@@ -44,6 +55,21 @@ justify-content: center;
   object-fit: contain;
 }
 
-.movie-detail-container{
+.movie-detail-container {
   max-width: 900px;
+}
+
+.movie-specs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
