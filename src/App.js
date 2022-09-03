@@ -19,6 +19,7 @@ import Paper from "@mui/material/Paper";
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import TicTacToe from "./TicTacToe";
 
 function App() {
   const INITIAL_MOVIE_LIST = [
@@ -96,7 +97,7 @@ function App() {
 
   const navigate = useNavigate();
   // ctrl + /
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
   const theme = createTheme({
     palette: {
       mode: mode,
@@ -118,6 +119,9 @@ function App() {
               <Button color="inherit" onClick={() => navigate("/color-game")}>
                 Color Game
               </Button>
+              <Button color="inherit" onClick={() => navigate("/tic-tac-toe")}>
+                Tic-Tac-Toe
+              </Button>
               <Button color="inherit" onClick={() => navigate("/movies")}>
                 Movies
               </Button>
@@ -138,6 +142,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/color-game" element={<AddColor />} />
+              <Route path="/tic-tac-toe" element={<TicTacToe/>} />
+
               <Route path="/welcome" element={<Welcome name={"World"} />} />
               <Route
                 path="/movies"
