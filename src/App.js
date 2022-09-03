@@ -16,6 +16,10 @@ import { MovieDetails } from "./MovieDetails";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 function App() {
   const INITIAL_MOVIE_LIST = [
     {
@@ -122,9 +126,10 @@ function App() {
               </Button>
               <Button
                 color="inherit"
+                startIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                 onClick={() => setMode(mode === "light" ? "dark" : "light")}
               >
-                {mode === "Light" ? "dark" : "Light"} mode
+                {mode === "light" ? "dark" : "light"} mode
               </Button>
             </Toolbar>
           </AppBar>
