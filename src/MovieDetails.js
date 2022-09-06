@@ -5,6 +5,8 @@ import {
 import Button from "@mui/material/Button";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { useState, useEffect } from "react";
+
+
 export function MovieDetails() {
   const { id } = useParams();
 
