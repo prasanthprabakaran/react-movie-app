@@ -4,11 +4,23 @@ import {
 } from "react-router-dom";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-
-export function MovieDetails({ movieList }) {
+import { useState, useEffect } from "react";
+export function MovieDetails() {
   const { id } = useParams();
 
-  const movie = movieList[id];
+  // const movie = movieList[id];
+
+  const [movie, setMovie] = useState({});
+
+  const getMovie = () => {
+    fetch(`https://627dfc9e271f386cefeeddb7.mockapi.io/movies/${id}`,{
+      method: "GET"
+    })
+      .then((data) => data.json())
+      .then((mv) => setMovie(mv));
+  };
+
+  useEffect(() => getMovie(), []);
 
   const styles = {
     color: movie.rating > 7.9 ? "green" : "red",

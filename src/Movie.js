@@ -13,7 +13,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-export function Movie({ movie, id }) {
+
+export function Movie({ movie, id, deleteButton }) {
   // rating > 8 -> green
   const [show, setShow] = useState(true);
 
@@ -73,8 +74,9 @@ export function Movie({ movie, id }) {
           </div>
         ) : null}
       </CardContent>
-      <CardActions sx={{ paddingTop: "0" }}>
+      <CardActions className="like-delete" sx={{ paddingTop: "0" }}>
         <Counter />
+        {deleteButton}
       </CardActions>
     </Card>
   );

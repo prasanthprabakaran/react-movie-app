@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import "./App.css";
-import Welcome from "./Welcome.js";
+// import Welcome from "./Welcome.js";
 import Button from "@mui/material/Button";
 import { NotFound } from "./NotFound";
 import { Home } from "./Home";
@@ -16,14 +16,14 @@ import { MovieDetails } from "./MovieDetails";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
-
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import TicTacToe from "./TicTacToe";
 
 function App() {
   const INITIAL_MOVIE_LIST = [
     {
+      id: "100",
       name: "Forrest Gump",
       poster:
         "https://w0.peakpx.com/wallpaper/1/639/HD-wallpaper-forrest-gump-love-movie.jpg",
@@ -34,6 +34,7 @@ function App() {
       trailer: "https://youtu.be/bLvqoHBptjg",
     },
     {
+      id: "101",
       name: "Interstellar",
       poster:
         "https://i.pinimg.com/originals/11/1c/5c/111c5c9ad99661af2d80e38948cf29d8.jpg",
@@ -44,6 +45,7 @@ function App() {
       trailer: "https://www.youtube.com/embed/ePbKGoIGAXY",
     },
     {
+      id: "102",
       name: "Saving Private Ryan",
       poster:
         "https://m.media-amazon.com/images/M/MV5BZjhkMDM4MWItZTVjOC00ZDRhLThmYTAtM2I5NzBmNmNlMzI1XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_.jpg",
@@ -54,6 +56,7 @@ function App() {
       trailer: "https://youtu.be/9CiW_DgxCnQ",
     },
     {
+      id: "103",
       name: "The Dark Knight Rises",
       poster:
         "https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg",
@@ -64,6 +67,7 @@ function App() {
       trailer: "https://www.youtube.com/embed/g8evyE9TuYk",
     },
     {
+      id: "104",
       name: "Coco",
       poster:
         "https://www.fsm-media.com/wp-content/uploads/2017/06/Coco5936f029264c3-692x1024.jpg",
@@ -74,6 +78,7 @@ function App() {
       trailer: "https://www.youtube.com/embed/Rvr68u6k5sI",
     },
     {
+      id: "105",
       name: "Your Name",
       poster: "https://m.media-amazon.com/images/I/71mcgmCAEwL._AC_SL1500_.jpg",
       rating: 8.4,
@@ -83,6 +88,7 @@ function App() {
       trailer: "https://www.youtube.com/embed/s0wTdCQoc2k",
     },
     {
+      id: "106",
       name: "The Pursuit of Happyness",
       poster: "https://m.media-amazon.com/images/I/71qvP73Ht0L._SL1173_.jpg",
       rating: 8,
@@ -103,6 +109,7 @@ function App() {
       mode: mode,
     },
   });
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -113,9 +120,9 @@ function App() {
               <Button color="inherit" onClick={() => navigate("/")}>
                 Home
               </Button>
-              <Button color="inherit" onClick={() => navigate("/welcome")}>
+              {/* <Button color="inherit" onClick={() => navigate("/welcome")}>
                 Welcome
-              </Button>
+              </Button> */}
               <Button color="inherit" onClick={() => navigate("/color-game")}>
                 Color Game
               </Button>
@@ -130,7 +137,9 @@ function App() {
               </Button>
               <Button
                 color="inherit"
-                startIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                startIcon={
+                  mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />
+                }
                 onClick={() => setMode(mode === "light" ? "dark" : "light")}
               >
                 {mode === "light" ? "dark" : "light"} mode
@@ -142,21 +151,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/color-game" element={<AddColor />} />
-              <Route path="/tic-tac-toe" element={<TicTacToe/>} />
+              <Route path="/tic-tac-toe" element={<TicTacToe />} />
 
-              <Route path="/welcome" element={<Welcome name={"World"} />} />
-              <Route
-                path="/movies"
-                element={
-                  <MovieList
-                    moviesList={movieList}
-                    setMovieList={setMovieList}
-                  />
-                }
-              />
+              {/* <Route path="/welcome" element={<Welcome name={"World"} />} /> */}
+              <Route path="/movies" element={<MovieList />} />
               <Route
                 path="/movies/:id"
-                element={<MovieDetails movieList={movieList} />}
+                element={<MovieDetails />}
               />
               <Route
                 path="/movies/add"

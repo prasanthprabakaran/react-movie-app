@@ -97,3 +97,7 @@
   grid-template-columns: repeat(3, 1fr);
   max-width: 800px;
 }
+
+.like-delete{
+  justify-content: space-between;
+}

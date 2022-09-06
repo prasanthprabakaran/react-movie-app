@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+// import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+// import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { IconButton } from "@mui/material";
 import Badge from "@mui/material/Badge";
 
@@ -20,6 +20,8 @@ export function Counter() {
 
   const incrementLike = () => setLike(like + 1);
   const incrementDisLike = () => setDisLike(dislike + 1);
+
+  
   return (
     <div className="counter-container">
       <IconButton
