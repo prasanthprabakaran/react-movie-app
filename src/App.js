@@ -12,7 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { AddMovie } from "./AddMovie";
 import { MovieList } from "./MovieList";
 import { MovieDetails } from "./MovieDetails";
-
+import BasicForm from './BasicForm'
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
@@ -155,6 +155,7 @@ function App() {
 
               {/* <Route path="/welcome" element={<Welcome name={"World"} />} /> */}
               <Route path="/movies" element={<MovieList />} />
+              <Route path="/basic-form" element={<BasicForm />} />
               <Route
                 path="/movies/:id"
                 element={<MovieDetails />}
@@ -215,3 +216,4 @@ function App() {
 // }
 
 export default App;
+
